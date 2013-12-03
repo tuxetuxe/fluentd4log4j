@@ -16,6 +16,21 @@ _A Log4J appender to push messages to a fluentd server._
 | useConstantDelayReconnector| false | Switch from the default Exponential Delay reconnector to a constant delay reconnector |
 
 ### Example
+*log4j.properties*
+log4j.rootLogger=info, fluentd
+log4j.appender.fluentd=com.fluentd4log4j.appender.FluentdAppender
+log4j.appender.fluentd.mdcKeys=user,host,whateer
+log4j.appender.fluentd.host=fluentdhost
+
+*fluentd configuration*
+<source>
+  type forward
+  port 24224
+</source>
+
+<match *>
+	type stdout
+</match>
 
 ## License
 This is available in the Apache Licence 2.0
