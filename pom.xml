@@ -41,7 +41,7 @@
 		</license>
 	</licenses>
 
-	<url>https://github.com/tuxetuxe/fluentd4log4j</url>
+	<url>http://www.twimba.com/fluentd4log4j</url>
 
 	<scm>
 		<connection>scm:git:git@github.com:tuxetuxe/fluentd4log4j.git</connection>
@@ -58,4 +58,7 @@
 		</developer>
 	</developers>
 
+	<organization>
+		<name>Twimba</name>
+	</organization>
 </project>
