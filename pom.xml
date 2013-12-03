@@ -35,6 +35,12 @@
 		</license>
 	</licenses>
 
+	<url>https://github.com/tuxetuxe/fluentd4log4j</url>
+
+	<scm>
+		<url>https://github.com/tuxetuxe/fluentd4log4j</url>
+	</scm>
+
 	<developers>
 		<developer>
 			<name>Luis Santos</name>
