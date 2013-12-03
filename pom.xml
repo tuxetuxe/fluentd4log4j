@@ -7,8 +7,8 @@
 		<version>7</version>
 	</parent>
 
-	<groupId>org.fluentd4log4j</groupId>
-	<artifactId>log4j-appender</artifactId>
+	<groupId>com.twimba</groupId>
+	<artifactId>fluentd4log4j</artifactId>
 	<version>1.0</version>
 	<packaging>jar</packaging>
 

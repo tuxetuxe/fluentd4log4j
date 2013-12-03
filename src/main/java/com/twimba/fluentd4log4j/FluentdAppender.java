@@ -1,4 +1,4 @@
-package com.fluentd4log4j.appender;
+package com.twimba.fluentd4log4j;
 
 import java.net.InetAddress;
 import java.net.UnknownHostException;
@@ -154,7 +154,6 @@ public class FluentdAppender extends AppenderSkeleton
   //
   // Getters and Setters
   //
-
   public FluentLogger getFluentLogger()
   {
     return fluentLogger;
