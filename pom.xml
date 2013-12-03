@@ -1,0 +1,46 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+
+	<groupId>com.fluentd4log4j</groupId>
+	<artifactId>log4j-appender</artifactId>
+	<version>0.0.1-SNAPSHOT</version>
+	<packaging>jar</packaging>
+
+	<name>Fluentd Log4j Appender</name>
+	<description>Integration between fluentd and log4j</description>
+
+	<properties>
+		<log4j.version>1.2.17</log4j.version>
+		<fluentd.version>0.2.11</fluentd.version>
+	</properties>
+
+	<dependencies>
+		<dependency>
+			<groupId>org.fluentd</groupId>
+			<artifactId>fluent-logger</artifactId>
+			<version>${fluentd.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>log4j</groupId>
+			<artifactId>log4j</artifactId>
+			<version>${log4j.version}</version>
+		</dependency>
+	</dependencies>
+
+	<licenses>
+		<license>
+			<name>The Apache Software License, Version 2.0</name>
+			<url>http://www.apache.org/licenses/LICENSE-2.0.txt</url>
+			<distribution>repo</distribution>
+		</license>
+	</licenses>
+
+	<developers>
+		<developer>
+			<name>Luis Santos</name>
+			<id>tuxetuxe</id>
+			<organizationUrl>https://github.com/tuxetuxe</organizationUrl>
+		</developer>
+	</developers>
+
+</project>
