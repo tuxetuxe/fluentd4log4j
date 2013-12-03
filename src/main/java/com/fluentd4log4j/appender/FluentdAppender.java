@@ -1,5 +1,7 @@
 package com.fluentd4log4j.appender;
 
+import java.net.InetAddress;
+import java.net.UnknownHostException;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -17,7 +19,7 @@ public class FluentdAppender extends AppenderSkeleton
   private FluentLogger fluentLogger;
 
   /**
-   * The MDC keys that should be added to the log structure.
+   * The MDC keys (comma separated) that should be added to the log structure.
    * <b>Default:</b> none
    */
   private String       mdcKeys                     = "";
@@ -59,6 +61,13 @@ public class FluentdAppender extends AppenderSkeleton
    * <b>Default:</b> false (use the Exponential Delay reconnector)
    */
   private boolean      useConstantDelayReconnector = false;
+
+  /**
+   * Adds a value with the current hostname. This value key is "host"
+   * 
+   * <b>Default:</b> false 
+   */
+  private boolean      addHostname                 = false;
 
   @Override
   public void activateOptions()
@@ -110,13 +119,140 @@ public class FluentdAppender extends AppenderSkeleton
     data.put("locationInformation", event.getLocationInformation().fullInfo);
     data.put("logger", event.getLoggerName());
     data.put("threadName", event.getThreadName());
-    data.put("throwableInformation", event.getThrowableStrRep());
-    data.put("NDC", event.getNDC());
+    if (event.getThrowableStrRep() != null)
+    {
+      data.put("throwableInformation", event.getThrowableStrRep());
+    }
+    if (event.getNDC() != null)
+    {
+      data.put("NDC", event.getNDC());
+    }
     for (String mdcKey : mdcKeys.split(","))
     {
-      data.put(mdcKey, event.getMDC(mdcKey));
+      Object value = event.getMDC(mdcKey);
+      if (value != null)
+      {
+        data.put(mdcKey, value);
+      }
+    }
+
+    if (addHostname)
+    {
+      try
+      {
+        data.put("hostname", InetAddress.getLocalHost().getHostName());
+      }
+      catch (UnknownHostException e)
+      {
+        LogLog
+            .warn("FluentdAppender is unable to get the current hostname. Please check your configuration and/or disable the addition of the hostname!");
+      }
     }
     fluentLogger.log(tag, data);
+  }
+
+  //
+  // Getters and Setters
+  //
+
+  public FluentLogger getFluentLogger()
+  {
+    return fluentLogger;
+  }
+
+  public void setFluentLogger(FluentLogger fluentLogger)
+  {
+    this.fluentLogger = fluentLogger;
+  }
+
+  public String getMdcKeys()
+  {
+    return mdcKeys;
+  }
+
+  public void setMdcKeys(String mdcKeys)
+  {
+    this.mdcKeys = mdcKeys;
+  }
+
+  public String getTagPrefix()
+  {
+    return tagPrefix;
+  }
+
+  public void setTagPrefix(String tagPrefix)
+  {
+    this.tagPrefix = tagPrefix;
+  }
+
+  public String getTag()
+  {
+    return tag;
+  }
+
+  public void setTag(String tag)
+  {
+    this.tag = tag;
+  }
+
+  public String getHost()
+  {
+    return host;
+  }
+
+  public void setHost(String host)
+  {
+    this.host = host;
+  }
+
+  public int getPort()
+  {
+    return port;
+  }
+
+  public void setPort(int port)
+  {
+    this.port = port;
+  }
+
+  public int getTimeout()
+  {
+    return timeout;
+  }
+
+  public void setTimeout(int timeout)
+  {
+    this.timeout = timeout;
+  }
+
+  public int getBufferCapacity()
+  {
+    return bufferCapacity;
+  }
+
+  public void setBufferCapacity(int bufferCapacity)
+  {
+    this.bufferCapacity = bufferCapacity;
+  }
+
+  public boolean isUseConstantDelayReconnector()
+  {
+    return useConstantDelayReconnector;
+  }
+
+  public void setUseConstantDelayReconnector(boolean useConstantDelayReconnector)
+  {
+    this.useConstantDelayReconnector = useConstantDelayReconnector;
+  }
+
+  public boolean isAddHostname()
+  {
+    return addHostname;
+  }
+
+  public void setAddHostname(boolean addHostname)
+  {
+    this.addHostname = addHostname;
   }
 
 }

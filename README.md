@@ -6,7 +6,7 @@ _A Log4J appender to push messages to a fluentd server._
 ### Configuration
 | property      | default value    | Description  |
 | ------------- |------------------| -------------|
-| mdcKeys | "" | The MDC keys that should be added to the log structure. |
+| mdcKeys | "" | The MDC keys (comma separated) that should be added to the log structure. |
 | tagPrefix | ""| The fluentd tag prefix to be used |
 | tag | "log" | The fluentd tag to be used in all the log messages sent there |
 | host | "localhost" | The fluentd server host to where to send the log messages. |
