@@ -4,11 +4,13 @@ _A Log4J appender to push log events to a fluentd server._
 ## How to Use
 
 ### Maven dependency
+```
 <dependency>
-	<groupId>com.twimba</groupId>
-	<artifactId>fluentd4log4j</artifactId>
+    <groupId>com.twimba</groupId>
+    <artifactId>fluentd4log4j</artifactId>
 	<version>1.0</version>
 <dependency>
+```
 
 ### Configuration
 | property      | default value    | Description  |
@@ -23,13 +25,15 @@ _A Log4J appender to push log events to a fluentd server._
 | useConstantDelayReconnector| false | Switch from the default Exponential Delay reconnector to a constant delay reconnector |
 
 ### Example
-*log4j.properties*
+**log4j.properties**
+```
 log4j.rootLogger=info, fluentd
 log4j.appender.fluentd=com.twimba.fluentd4log4j.FluentdAppender.java
-log4j.appender.fluentd.mdcKeys=user,host,whateer
+log4j.appender.fluentd.mdcKeys=user,host,whatever
 log4j.appender.fluentd.host=fluentdhost
-
-*fluentd configuration*
+```
+**fluentd configuration**
+```
 <source>
   type forward
   port 24224
@@ -38,6 +42,7 @@ log4j.appender.fluentd.host=fluentdhost
 <match ** >
 	type stdout
 </match>
+```
 
 ## License
 This is available in the Apache Licence 2.0
