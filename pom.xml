@@ -9,7 +9,7 @@
 
 	<groupId>com.twimba</groupId>
 	<artifactId>fluentd4log4j</artifactId>
-	<version>1.0</version>
+	<version>1.0.1</version>
 	<packaging>jar</packaging>
 
 	<name>Fluentd Log4j Appender</name>
