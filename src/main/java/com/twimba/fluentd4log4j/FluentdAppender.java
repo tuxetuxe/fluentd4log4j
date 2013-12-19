@@ -8,6 +8,7 @@ import java.util.Map;
 import org.apache.log4j.AppenderSkeleton;
 import org.apache.log4j.helpers.LogLog;
 import org.apache.log4j.spi.LoggingEvent;
+import org.fluentd.logger.Config;
 import org.fluentd.logger.FluentLogger;
 import org.fluentd.logger.sender.ConstantDelayReconnector;
 import org.fluentd.logger.sender.ExponentialDelayReconnector;
@@ -83,12 +84,23 @@ public class FluentdAppender extends AppenderSkeleton
       reconnector = new ExponentialDelayReconnector();
     }
 
-    fluentLogger = FluentLogger.getLogger(tagPrefix, host, port, timeout, bufferCapacity, reconnector);
+    System.setProperty(Config.FLUENT_SENDER_CLASS, ManagedRawSocketSender.class.getName());
 
-    LogLog.warn("FluentdAppender connected to fluentd! (host=" + host + ", port=" + port + ",timeout=" + timeout + ",bufferCapacity="
-                + bufferCapacity + ",tagPrefix=" + tagPrefix + ")");
+    try
+    {
+      fluentLogger = FluentLogger.getLogger(tagPrefix, host, port, timeout, bufferCapacity, reconnector);
+      LogLog.warn("FluentdAppender connected to fluentd! (host=" + host + ", port=" + port + ",timeout=" + timeout + ",bufferCapacity="
+                  + bufferCapacity + ",tagPrefix=" + tagPrefix + ")");
+    }
+    catch (Exception e)
+    {
+      LogLog.warn("FluentdAppender NOT connected to fluentd! (host=" + host + ", port=" + port + ",timeout=" + timeout + ",bufferCapacity="
+                  + bufferCapacity + ",tagPrefix=" + tagPrefix + ")");
+      fluentLogger = null;
+    }
   }
 
+  @Override
   public void close()
   {
     if (fluentLogger != null)
@@ -98,6 +110,7 @@ public class FluentdAppender extends AppenderSkeleton
     }
   }
 
+  @Override
   public boolean requiresLayout()
   {
     return false;
@@ -109,7 +122,7 @@ public class FluentdAppender extends AppenderSkeleton
     if (fluentLogger == null)
     {
       // Ups! Something very wrong is going on here! Bail out!
-      LogLog.warn("FluentdAppender has no fluentLogger. Please check your configuration and/or logs for errors!");
+      LogLog.debug("FluentdAppender has no fluentLogger. Please check your configuration and/or logs for errors!");
       return;
     }
     Map<String, Object> data = new HashMap<String, Object>();
@@ -154,6 +167,7 @@ public class FluentdAppender extends AppenderSkeleton
   //
   // Getters and Setters
   //
+
   public FluentLogger getFluentLogger()
   {
     return fluentLogger;
