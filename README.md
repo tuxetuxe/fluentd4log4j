@@ -1,4 +1,6 @@
 # fluentd4log4j
+
+[![Join the chat at https://gitter.im/tuxetuxe/fluentd4log4j](https://badges.gitter.im/Join%20Chat.svg)](https://gitter.im/tuxetuxe/fluentd4log4j?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
 _A Log4J appender to push log events to a fluentd server._
 
 ## How to Use
