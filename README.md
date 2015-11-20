@@ -11,7 +11,7 @@ _A Log4J appender to push log events to a fluentd server._
     <groupId>com.twimba</groupId>
     <artifactId>fluentd4log4j</artifactId>
 	<version>1.0</version>
-<dependency>
+</dependency>
 ```
 
 ### Configuration
